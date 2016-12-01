@@ -1,0 +1,22 @@
+.App table.result {
+  margin: 1rem auto !important;
+  table-layout: fixed; }
+  .App table.result th, .App table.result td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+    .App table.result th:not(:first-child), .App table.result td:not(:first-child) {
+      width: 20%; }
+  .App table.result th:not(:first-child) {
+    text-align: center; }
+  .App table.result td:not(:first-child) {
+    text-align: right;
+    font-family: monospace;
+    font-size: 100%; }
+@media only screen and (max-width: 767px) {
+  .App .ui.container.result {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important; } }
+
+/*# sourceMappingURL=App.css.map */

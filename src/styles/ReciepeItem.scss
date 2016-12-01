@@ -1,0 +1,46 @@
+@import 'variables';
+
+.RecipeItem {
+    .ui.right.labeled.input {
+        display: flex;
+
+        .ui.label:first-child {
+            text-align: right;
+            flex: 10;
+            @include ellipsis;
+        }
+
+        input {
+            flex: 1;
+        }
+
+        .ui.label:last-child {
+            width: 5rem;
+            text-align: left;
+        }
+
+        &.error {
+            $bg-color: darken($error-bg-color, 6%);
+
+            .ui.label:first-child {
+                color: lighten($error-color, 5%);
+                background-color: $bg-color;
+            }
+
+            input {
+                color: $error-color;
+                border: 1px solid $bg-color;
+                border-left-color: transparent;
+
+                &:focus {
+                    border: 1px solid lighten($error-color, 30%) !important;
+                }
+            }
+
+            .ui.label:last-child {
+                color: $error-color;
+                border: 1px solid $bg-color;
+            }
+        }
+    }
+}

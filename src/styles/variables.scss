@@ -1,0 +1,9 @@
+$error-color: #9f3a38;
+$error-bg-color: #fff6f6;
+$error-border-color: #e0b4b4;
+
+@mixin ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
