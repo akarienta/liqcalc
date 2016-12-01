@@ -1,3 +1,5 @@
+.App .ui.segment {
+  margin-top: 1rem !important; }
 .App table.result {
   margin: 1rem auto !important;
   table-layout: fixed; }

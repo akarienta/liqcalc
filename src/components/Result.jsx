@@ -5,6 +5,10 @@ import Container from './Container';
 import Button from './Button';
 
 export default class Result extends React.Component {
+    static propTypes = {
+        onButtonClick: React.PropTypes.func.isRequired
+    };
+
     render() {
         return (
             <Container
@@ -46,6 +50,7 @@ export default class Result extends React.Component {
                 </div>
                 <Button
                     label="Nový recept"
+                    onClick={this.props.onButtonClick}
                 />
             </Container>
         )

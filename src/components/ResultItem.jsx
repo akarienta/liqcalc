@@ -1,14 +1,14 @@
 import React from 'react';
 import numeral from 'numeral';
 
-const propTypes = {
-    label: React.PropTypes.string.isRequired,
-    value: React.PropTypes.number.isRequired,
-    drops: React.PropTypes.number.isRequired,
-    percentage: React.PropTypes.number.isRequired
-};
+export default class ResultItem extends React.Component {
+    static propTypes = {
+        label: React.PropTypes.string.isRequired,
+        value: React.PropTypes.number.isRequired,
+        drops: React.PropTypes.number.isRequired,
+        percentage: React.PropTypes.number.isRequired
+    };
 
-class ResultItem extends React.Component {
     formatNumber(number) {
         return numeral(number).format('0.0');
     }
@@ -24,7 +24,3 @@ class ResultItem extends React.Component {
         )
     }
 }
-
-ResultItem.propTypes = propTypes;
-
-export default ResultItem;

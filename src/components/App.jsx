@@ -7,6 +7,19 @@ import Recipe from './Recipe';
 import Result from './Result';
 
 export default class App extends React.Component {
+    state = {
+        recipeIsGenerated: false
+    };
+
+    onGenerateRecipe = ({nicotineBase, requestedConcentration, value, flavour}) => {
+        console.log(nicotineBase, requestedConcentration, value, flavour);
+        this.setState({recipeIsGenerated: true});
+    };
+
+    onNewRecipe = () => {
+        this.setState({recipeIsGenerated: false});
+    };
+
     render() {
         return (
             <div className='App ui middle aligned center aligned grid'>
@@ -17,8 +30,14 @@ export default class App extends React.Component {
                             LiqCalc
                         </div>
                     </h1>
-                    <Recipe/>
-                    <Result/>
+                    {this.state.recipeIsGenerated ? (
+                        <Result
+                            onButtonClick={this.onNewRecipe} />
+                    ) : (
+                        <Recipe
+                            onButtonClick={this.onGenerateRecipe}
+                        />
+                    )}
                 </div>
             </div>
         );
