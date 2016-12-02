@@ -43,23 +43,33 @@ export default class Recipe extends React.Component {
         this.setState({fields, fieldErrors});
     };
 
-    onButtonClick = (evt) => {
-        const fieldErrors = {};
-
-        if (this.state.fields.length !== 4) {
-            fieldErrors.general = 'Musíte vyplnit všechna pole.';
-            this.setState({fieldErrors});
-            return;
-        } else {
-            this.setState({fieldErrors});
-        }
-
+    onButtonClick = () => {
         const nicotineBase = toFloat(this.state.fields.nicotineBase);
         const requestedConcentration = toFloat(this.state.fields.requestedConcentration);
         const value = toFloat(this.state.fields.value);
         const flavour = toFloat(this.state.fields.flavour);
 
-        this.props.onButtonClick({nicotineBase, requestedConcentration, value, flavour});
+        const nicotineBaseRes = requestedConcentration * value / nicotineBase;
+        const flavourRes = flavour * value / 100;
+        const noNicotineBaseRes = ((1 - requestedConcentration / nicotineBase) * value) - flavourRes;
+
+        const fieldErrors = {};
+
+        if (Object.keys(this.state.fields).length !== 4) {
+            fieldErrors.general = 'Musíte vyplnit všechna pole.';
+        } else if (requestedConcentration >= nicotineBase) {
+            fieldErrors.general = <span>Ze zadaných hodnot nelze vygenerovat recept. <b>Koncentrace nikotinové báze</b> musí být vyšší než <b>cílová koncentrace nikotinu</b>.</span>;
+        } else if (noNicotineBaseRes < 0) {
+            fieldErrors.general = <span>Ze zadaných hodnot nelze vygenerovat recept. Zkuste snížit <b>cílovou koncentraci nikotinu</b> nebo <b>koncentraci příchutě</b>.</span>;
+        } else if (Math.round(flavourRes) === 0){
+            fieldErrors.general = <span>Ze zadaných hodnot nelze vygenerovat recept. Zkuste navýšit <b>objem lahvičky</b>.</span>;
+        }
+
+        this.setState({fieldErrors}, () => {
+            if (_.isEmpty(this.state.fieldErrors)) {
+                this.props.onButtonClick({nicotineBaseRes, noNicotineBaseRes, flavourRes, value});
+            }
+        });
     };
 
     isButtonDisabled = () => {

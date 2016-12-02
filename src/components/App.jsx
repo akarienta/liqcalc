@@ -2,6 +2,7 @@ import React from 'react';
 
 import '../styles/App.css';
 import logo from '../logo.svg';
+import {ResultDTO} from '../dtos'
 
 import Recipe from './Recipe';
 import Result from './Result';
@@ -11,8 +12,13 @@ export default class App extends React.Component {
         recipeIsGenerated: false
     };
 
-    onGenerateRecipe = ({nicotineBase, requestedConcentration, value, flavour}) => {
-        console.log(nicotineBase, requestedConcentration, value, flavour);
+    result = new ResultDTO();
+
+    onGenerateRecipe = ({nicotineBaseRes, noNicotineBaseRes, flavourRes, value}) => {
+        this.result.nicotineBase.setValue(nicotineBaseRes, value);
+        this.result.noNicotineBase.setValue(noNicotineBaseRes, value);
+        this.result.flavour.setValue(flavourRes, value);
+
         this.setState({recipeIsGenerated: true});
     };
 
@@ -32,7 +38,9 @@ export default class App extends React.Component {
                     </h1>
                     {this.state.recipeIsGenerated ? (
                         <Result
-                            onButtonClick={this.onNewRecipe} />
+                            onButtonClick={this.onNewRecipe}
+                            result={this.result}
+                        />
                     ) : (
                         <Recipe
                             onButtonClick={this.onGenerateRecipe}

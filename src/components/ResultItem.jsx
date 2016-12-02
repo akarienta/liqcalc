@@ -1,25 +1,18 @@
 import React from 'react';
-import numeral from 'numeral';
+import {ResultItemDTO} from '../dtos';
 
 export default class ResultItem extends React.Component {
     static propTypes = {
-        label: React.PropTypes.string.isRequired,
-        value: React.PropTypes.number.isRequired,
-        drops: React.PropTypes.number.isRequired,
-        percentage: React.PropTypes.number.isRequired
+        item: React.PropTypes.instanceOf(ResultItemDTO).isRequired
     };
-
-    formatNumber(number) {
-        return numeral(number).format('0.0');
-    }
 
     render() {
         return (
             <tr>
-                <td>{this.props.label}</td>
-                <td>{this.formatNumber(this.props.value)}</td>
-                <td>{this.formatNumber(this.props.drops)}</td>
-                <td>{this.formatNumber(this.props.percentage)}</td>
+                <td>{this.props.item.label}</td>
+                <td>{this.props.item.getValue()}</td>
+                <td>{this.props.item.getDrops()}</td>
+                <td>{this.props.item.getPercentage()}</td>
             </tr>
         )
     }

@@ -1,7 +1,11 @@
 {
   "name": "liqcalc",
+  "description": "Mobile application to calculate bases and flavour ratios when mixing liquid for e-cigarette",
+  "keywords": ["e-juice", "liquid", "calcultor", "e-cigarette"],
   "version": "0.1.0",
-  "private": true,
+  "repository": "https://github.com/akarienta/liqcalc",
+  "author": "Akarienta <akarienta@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "react-scripts": "0.7.0"
   },

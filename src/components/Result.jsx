@@ -3,10 +3,12 @@ import React from 'react';
 import ResultItem from './ResultItem';
 import Container from './Container';
 import Button from './Button';
+import {ResultDTO} from '../dtos';
 
 export default class Result extends React.Component {
     static propTypes = {
-        onButtonClick: React.PropTypes.func.isRequired
+        onButtonClick: React.PropTypes.func.isRequired,
+        result: React.PropTypes.instanceOf(ResultDTO).isRequired
     };
 
     render() {
@@ -28,22 +30,13 @@ export default class Result extends React.Component {
                         </thead>
                         <tbody>
                             <ResultItem
-                                label='Nikotinová báze'
-                                value={5}
-                                drops={100}
-                                percentage={50}
+                                item={this.props.result.nicotineBase}
                             />
                             <ResultItem
-                                label='Nulka'
-                                value={3.6}
-                                drops={71}
-                                percentage={36}
+                                item={this.props.result.noNicotineBase}
                             />
                             <ResultItem
-                                label='Příchuť'
-                                value={1.4}
-                                drops={28}
-                                percentage={14}
+                                item={this.props.result.flavour}
                             />
                         </tbody>
                     </table>
