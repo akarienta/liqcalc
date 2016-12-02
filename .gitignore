@@ -15,3 +15,8 @@ npm-debug.log
 # IDE
 .idea
 *.iml
+
+# styles
+*.css
+*.css.map
+!*.min.css

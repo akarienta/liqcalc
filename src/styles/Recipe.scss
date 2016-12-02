@@ -1,0 +1,7 @@
+.Recipe {
+    .buttons {
+        .twelve.wide.column + .four.wide.column {
+            padding-left: 0 !important;
+        }
+    }
+}

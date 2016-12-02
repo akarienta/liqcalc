@@ -1,6 +1,7 @@
+import React from 'react';
 import _ from 'lodash';
 
-const commasToPoints = function(x) {
+const commasToPoints = function (x) {
     if (_.isUndefined(x)) {
         return undefined;
     }
@@ -23,14 +24,14 @@ const toFloat = function (x) {
     }
 };
 
-const validate = function(value, label) {
+const validate = function (value, label) {
     let error;
     if (_.isEmpty(value)) {
-        error = 'Pole ' + label  + ' nesmí být prázdné.';
+        error = <span>Pole <b>{label}</b> nesmí být prázdné.</span>;
     } else if (!isNumeric(value)) {
-        error = 'Pole ' + label + ' musí být desetinné číslo.';
-    } else {
-        error = undefined;
+        error = <span>Pole <b>{label}</b> musí být kladné číslo.</span>;
+    } else if (toFloat(value) === 0) {
+        error = <span>Hodnota <b>{label}</b> nesmí být nula.</span>;
     }
     return error;
 };

@@ -1,6 +1,10 @@
+$primary-color: #00b5Ad;
+
 $error-color: #9f3a38;
 $error-bg-color: #fff6f6;
 $error-border-color: #e0b4b4;
+
+$label-bg-color: #e8e8e8;
 
 @mixin ellipsis {
     white-space: nowrap;

@@ -1,11 +1,20 @@
 import React from 'react';
 import _ from 'lodash';
 
+import '../styles/Recipe.css'
+
 import {toFloat} from '../helpers';
 
 import RecipeItem from './RecipeItem';
 import Button from './Button';
 import Container from './Container';
+
+const Field = {
+    NICOTINE_BASE: 'nicotineBase',
+    REQ_CONCENTRATION: 'requestedConcentration',
+    VALUE: 'value',
+    FLAVOUR: 'flavour'
+};
 
 export default class Recipe extends React.Component {
     static propTypes = {
@@ -13,12 +22,7 @@ export default class Recipe extends React.Component {
     };
 
     state = {
-        fields: {
-            nicotineBase: '6',
-            requestedConcentration: '2',
-            value: '10',
-            flavour: '10'
-        },
+        fields: {},
         fieldErrors: {}
     };
 
@@ -39,13 +43,10 @@ export default class Recipe extends React.Component {
         this.setState({fields, fieldErrors});
     };
 
-    onButtonClick = () => {
-        const isSomeValueEmpty = _(this.state.fields).toArray().value().some((value) => {
-            return value === '';
-        });
+    onButtonClick = (evt) => {
         const fieldErrors = {};
 
-        if (isSomeValueEmpty) {
+        if (this.state.fields.length !== 4) {
             fieldErrors.general = 'Musíte vyplnit všechna pole.';
             this.setState({fieldErrors});
             return;
@@ -65,12 +66,52 @@ export default class Recipe extends React.Component {
         return Object.keys(this.state.fieldErrors).length > 0;
     };
 
+    onReset = () => {
+        this.setState({fields: {}, fieldErrors: {}});
+    };
+
+    hasError = (fieldName) => {
+        return this.state.fieldErrors.hasOwnProperty(fieldName);
+    };
+
     render() {
         return (
-            <form className='ui large recipe form error'>
+            <form className='Recipe ui large form error'>
                 <Container
                     headline='Nový recept'
                 >
+                    <RecipeItem
+                        label='Koncentrace nikotinové báze'
+                        unit='mg/ml'
+                        name={Field.NICOTINE_BASE}
+                        value={this.state.fields[Field.NICOTINE_BASE]}
+                        onChange={this.onInputChange}
+                        hasError={this.hasError(Field.NICOTINE_BASE)}
+                    />
+                    <RecipeItem
+                        label='Cílová koncentrace nikotinu'
+                        unit='mg/ml'
+                        name={Field.REQ_CONCENTRATION}
+                        value={this.state.fields[Field.REQ_CONCENTRATION]}
+                        onChange={this.onInputChange}
+                        hasError={this.hasError(Field.REQ_CONCENTRATION)}
+                    />
+                    <RecipeItem
+                        label='Objem lahvičky'
+                        unit='ml'
+                        name={Field.VALUE}
+                        value={this.state.fields[Field.VALUE]}
+                        onChange={this.onInputChange}
+                        hasError={this.hasError(Field.VALUE)}
+                    />
+                    <RecipeItem
+                        label='Koncentrace příchutě'
+                        unit='%'
+                        name={Field.FLAVOUR}
+                        value={this.state.fields[Field.FLAVOUR]}
+                        onChange={this.onInputChange}
+                        hasError={this.hasError(Field.FLAVOUR)}
+                    />
                     {!_.isEmpty(this.state.fieldErrors) ? (
                         <div className='column'>
                             <div className='ui error message'>
@@ -83,39 +124,26 @@ export default class Recipe extends React.Component {
                             </div>
                         </div>
                     ) : ''}
-                    <RecipeItem
-                        label='Koncentrace nikotinové báze'
-                        unit='mg/ml'
-                        name='nicotineBase'
-                        value={this.state.fields.nicotineBase}
-                        onChange={this.onInputChange}
-                    />
-                    <RecipeItem
-                        label='Cílová koncentrace nikotinu'
-                        unit='mg/ml'
-                        name='requestedConcentration'
-                        value={this.state.fields.requestedConcentration}
-                        onChange={this.onInputChange}
-                    />
-                    <RecipeItem
-                        label='Objem lahvičky'
-                        unit='ml'
-                        name='value'
-                        value={this.state.fields.value}
-                        onChange={this.onInputChange}
-                    />
-                    <RecipeItem
-                        label='Koncentrace příchutě'
-                        unit='%'
-                        name='flavour'
-                        value={this.state.fields.flavour}
-                        onChange={this.onInputChange}
-                    />
-                    <Button
-                        label="Vygenerovat recept"
-                        onClick={this.onButtonClick}
-                        isDisabled={this.isButtonDisabled()}
-                    />
+                    <div className="column">
+                        <div className="ui grid buttons">
+                            <div className="twelve wide column">
+                                <Button
+                                    onClick={this.onButtonClick}
+                                    isDisabled={this.isButtonDisabled()}
+                                >
+                                    Vygenerovat recept
+                                </Button>
+                            </div>
+                            <div className="four wide column">
+                                <Button
+                                    isPrimary={false}
+                                    onClick={this.onReset}
+                                >
+                                    <i className='trash icon'/>
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
                 </Container>
             </form>
         )

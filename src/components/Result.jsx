@@ -49,9 +49,10 @@ export default class Result extends React.Component {
                     </table>
                 </div>
                 <Button
-                    label="Nový recept"
                     onClick={this.props.onButtonClick}
-                />
+                >
+                    Nový recept
+                </Button>
             </Container>
         )
     }

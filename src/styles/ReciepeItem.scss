@@ -6,17 +6,26 @@
 
         .ui.label:first-child {
             text-align: right;
-            flex: 10;
+            flex: 4;
             @include ellipsis;
         }
 
         input {
             flex: 1;
+            border: 1px solid $label-bg-color !important;
+            font-family: monospace;
+            text-align: right;
+
+            &:focus {
+                background-color: lighten($primary-color, 62%);
+            }
         }
 
         .ui.label:last-child {
             width: 5rem;
             text-align: left;
+            border-left: 0 !important;
+            border-color: $label-bg-color;
         }
 
         &.error {
@@ -29,12 +38,7 @@
 
             input {
                 color: $error-color;
-                border: 1px solid $bg-color;
-                border-left-color: transparent;
-
-                &:focus {
-                    border: 1px solid lighten($error-color, 30%) !important;
-                }
+                border-color: $bg-color !important;
             }
 
             .ui.label:last-child {
