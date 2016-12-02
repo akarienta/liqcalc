@@ -55,7 +55,9 @@ export default class RecipeItem extends React.Component {
                         className='ui label'
                         onClick={this.focusInput}
                     >
-                        {this.props.label}
+                        <div>
+                            {this.props.label}
+                        </div>
                     </div>
                     <input type='text'
                            value={this.state.value}

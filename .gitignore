@@ -20,3 +20,8 @@ npm-debug.log
 *.css
 *.css.map
 !*.min.css
+
+# cordova
+platforms
+plugins
+www
